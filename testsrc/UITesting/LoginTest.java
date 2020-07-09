@@ -6,6 +6,17 @@ import org.testng.annotations.Test;
 import pages.Login;
 import util.OpenUrl;
 
+
+/*
+1. availability of elements
+2. enability / disability
+3. watermark
+4. spellings
+5. button / text  -  color
+6. text font
+
+ */
+
 public class LoginTest extends OpenUrl {
 
     Login login;
