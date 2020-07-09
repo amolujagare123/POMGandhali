@@ -16,6 +16,10 @@ import java.sql.*;
 import java.text.ParseException;
 import java.util.ArrayList;
 
+import static utilities.Conversion.*;
+import static utilities.Conversion.convertGender;
+
+
 public class AddClientTest extends DoLogin {
 
     @Test(dataProvider="getData")
@@ -28,6 +32,21 @@ public class AddClientTest extends DoLogin {
         expected.add(name);
         expected.add(surname);
         expected.add(add1);
+        expected.add(add2);
+        expected.add(language.toLowerCase());
+        expected.add(city);
+        expected.add(state);
+        expected.add(zip);
+        expected.add(country);
+        expected.add(phone);
+        expected.add(fax);
+        expected.add(mobile);
+        expected.add(email);
+        expected.add(web);
+        expected.add(gender);
+        expected.add(birthDate);
+        expected.add(vat);
+        expected.add(taxes);
 
 
 
@@ -76,6 +95,28 @@ public class AddClientTest extends DoLogin {
             actual.add(rs.getString("client_name"));
             actual.add(rs.getString("client_surname"));
             actual.add(rs.getString("client_address_1"));
+            actual.add(rs.getString("client_address_2"));
+            actual.add(rs.getString("client_language"));
+            actual.add(rs.getString("client_city"));
+            actual.add(rs.getString("client_state"));
+            actual.add(rs.getString("client_zip"));
+
+            actual.add(convertCountry(rs.getString("client_country")));
+
+
+
+            actual.add(rs.getString("client_phone"));
+            actual.add(rs.getString("client_fax"));
+            actual.add(rs.getString("client_mobile"));
+            actual.add(rs.getString("client_email"));
+            actual.add(rs.getString("client_web"));
+
+            actual.add(convertGender(rs.getString("client_gender")));
+
+            actual.add(convertMyDate(rs.getString("client_birthdate")));
+
+            actual.add(rs.getString("client_vat_id"));
+            actual.add(rs.getString("client_tax_code"));
         }
 
 
@@ -85,12 +126,11 @@ public class AddClientTest extends DoLogin {
         // date selection : https://www.youtube.com/watch?v=yW1-IbI_soc
     }
 
-
     @DataProvider
     public Object[][] getData() throws IOException {
         FileInputStream fp = new FileInputStream("Data\\myData.xlsx");
         XSSFWorkbook workbook = new XSSFWorkbook(fp);
-        XSSFSheet sheet = workbook.getSheet("Sheet1");
+        XSSFSheet sheet = workbook.getSheet("dbTesting");
         int rowCount = sheet.getPhysicalNumberOfRows();
 
         Object[][] data = new Object[rowCount-1][18];
